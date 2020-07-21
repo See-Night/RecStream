@@ -1,0 +1,11 @@
+#calendar {
+    text-align: center;
+}
+
+#calendar > thead {
+    font-size: 0.8rem;
+}
+
+#calendar th {
+    width: 14.2%;
+}

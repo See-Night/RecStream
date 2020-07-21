@@ -1,0 +1,12 @@
+asgiref
+certifi
+chardet
+Django
+ffmpeg-python
+future
+idna
+numpy
+pytz
+requests
+sqlparse
+urllib3

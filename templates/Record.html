@@ -1,0 +1,15 @@
+<div class="col-8 d-flex flex-column align-items-end p-0" id="recordlist">
+    <div class="col-11 bg-light p-3 d-flex flex-column">
+        <h3 class="mt-2 mb-4">直播记录</h3>
+        <ul class="list-group col p-0">
+            {% for r in RecordList %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <div class="d-flex justify-content-between w-100" onclick="toInfoPage({{ r.id }})">
+                        <p class="m-0">{{ r.Title }}</p>
+                        <p class="m-0">{{ r.Date }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

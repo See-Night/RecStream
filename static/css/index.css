@@ -1,0 +1,12 @@
+body {
+    background-color: #eee;
+}
+
+.bg-eee {
+    background-color: #eee;
+}
+
+#logo {
+    max-width: 100%;
+    height: 2rem;
+}
