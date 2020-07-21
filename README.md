@@ -15,7 +15,6 @@
 $ sudo pip3 install -r requirements.txt
 
 $ sudo python3 manage.py migrate
-$ sudo python3 manage.py makemigrations
 ```
 
 #### Windows
@@ -23,7 +22,6 @@ $ sudo python3 manage.py makemigrations
 ```powershell
 > pip install -r requirements.txt
 > python manage.py migrate
-> python manage.py makemigrations
 ```
 
 ### 运行
