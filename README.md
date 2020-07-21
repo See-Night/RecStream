@@ -2,9 +2,11 @@
 
 ## Bilibili自动录播站
 
-***需要python3+ffmpeg的支持***
+> **需要python3+ffmpeg的支持**
 
-录播脚本来源于之前写的一个[项目](https://github.com/dreammer12138/DDMonitor)
+> 录播脚本来源于之前写的一个[项目](https://github.com/dreammer12138/DDMonitor)
+
+**详细说明书请访问[Wiki](https://1145141919810.wang/BiliRec)**
 
 ### 安装
 

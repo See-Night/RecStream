@@ -42,7 +42,7 @@ try:
                 print("Start recording {} in {}".format(file_name, t))
 
                 # start recording
-                os.system('streamlink -O https://live.bilibili.com/' + room + ' best | ffmpeg -loglevel error -i pipe:0 -vcodec copy -acodec copy -vbsf h264_mp4toannexb {}/'.format(path) + file_name)
+                os.system('streamlink -O https://live.bilibili.com/' + room + ' best | ffmpeg -loglevel error -i pipe:0 -vcodec copy -acodec copy -vbsf h264_mp4toannexb {}/\'{}\''.format(path, file_name))
 
                 # get info
                 info = ffmpeg.probe('{}/{}'.format(path, file_name))
