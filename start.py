@@ -52,13 +52,12 @@ if __name__ == '__main__':
     django = multiprocessing.Process(target=start_django, args=(python, port))
     monitor = multiprocessing.Process(target=start_monitor, args=(python, room, port, path, uid))
 
-    django.start()
-    monitor.start()
-
     try:
-        while True:
-            pass
-    except KeyboardInterrupt:
+        django.start()
+        monitor.start()
+        django.join()
+        monitor.join()
+    except Exception:
         django.close()
         monitor.close()
         print("END")
