@@ -49,7 +49,7 @@ def addRecordVideo(title, cover, date, time, resolution, framerate, videobyterat
         Time=str(time),
         Resolution=resolution,
         FrameRate=int(str(framerate).replace('/1', '')),
-        VideoByteRate=int(videobyterate),
-        AudioByteRate=int(audiobyterate)
+        VideoByteRate=int(videobyterate)/1024,
+        AudioByteRate=int(audiobyterate)/1024
     ).save()
     config.objects.all().update(records=(config.objects.all()[0].records + 1))
