@@ -68,8 +68,8 @@ if __name__ == "__main__":
                 # Record
                 try:
                     Record(room, path, file_name, title, cover, port)
-                except Exception:
-                    print("ERROR")
+                except Exception as e:
+                    print("ERROR: {}".format(e))
                     continue
 
         except Exception as e:
