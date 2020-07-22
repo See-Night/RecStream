@@ -1,5 +1,6 @@
 from django.test import TestCase
 from RecVideo.models import RecordVideo
+from Config.models import config
 
 
 # Create your tests here.
@@ -40,13 +41,15 @@ def RecordInfo(recid):
 
 
 def addRecordVideo(title, cover, date, time, resolution, framerate, videobyterate, audiobyterate):
+    print(title, cover, date, time, resolution, framerate, videobyterate, audiobyterate)
     RecordVideo(
         Title=title,
         Cover=cover,
         Date=date,
-        Time=time,
+        Time=str(time),
         Resolution=resolution,
-        FrameRate=framerate,
-        VideoByteRate=videobyterate,
-        AudioByteRate=audiobyterate
+        FrameRate=int(str(framerate).replace('/1', '')),
+        VideoByteRate=int(videobyterate),
+        AudioByteRate=int(audiobyterate)
     ).save()
+    config.objects.all().update(records=(config.objects.all()[0].records + 1))

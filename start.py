@@ -10,12 +10,12 @@ def start_django(py, p):
     os.system('{} manage.py runserver 0.0.0.0:{} --insecure &'.format(py, p))
 
 
-def start_monitor(py, r, p, pa):
-    os.system('{} monitor.py -r {} -p {} -o {} &'.format(py, r, p, pa))
+def start_monitor(py, r, p, pa, u):
+    os.system('{} monitor.py -r {} -p {} -o {} -u {} &'.format(py, r, p, pa, u))
 
 
 if __name__ == '__main__':
-    opts, args = getopt.getopt(sys.argv[1:], "r:o:p:", ["room=", "outpath=", "port="])
+    opts, args = getopt.getopt(sys.argv[1:], "r:o:p:u:", ["room=", "outpath=", "port=", "uid="])
 
     try:
         for opt, val in opts:
@@ -25,6 +25,8 @@ if __name__ == '__main__':
                 path = val
             if opt in ("-p", "--port"):
                 port = val
+            if opt in ("-u", "--uid"):
+                uid = val
     except getopt.GetoptError as e:
         sys.exit()
 
@@ -48,7 +50,7 @@ if __name__ == '__main__':
     conn.close()
 
     django = multiprocessing.Process(target=start_django, args=(python, port))
-    monitor = multiprocessing.Process(target=start_monitor, args=(python, room, port, path))
+    monitor = multiprocessing.Process(target=start_monitor, args=(python, room, port, path, uid))
 
     django.start()
     monitor.start()
