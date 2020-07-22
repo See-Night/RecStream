@@ -7,6 +7,7 @@ import getopt
 import requests
 import ffmpeg
 import platform
+import streamlink
 
 
 def Record(room, path, file_name, title, cover, port):
