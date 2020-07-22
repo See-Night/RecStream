@@ -7,8 +7,6 @@ import getopt
 import requests
 import ffmpeg
 import platform
-import streamlink
-import multiprocessing
 
 
 def Record(room, path, file_name, title, cover, port):
@@ -68,12 +66,9 @@ if __name__ == "__main__":
                 
                 # Record
                 try:
-                    rec = multiprocessing.Process(target=Record, args=(room, path, file_name, title, cover, port))
-                    rec.start()
-                    rec.join()
+                    Record(room, path, file_name, title, cover, port)
                 except Exception:
                     print("ERROR")
-                    rec.close()
                     continue
 
         except Exception as e:
