@@ -11,7 +11,7 @@ import streamlink
 
 
 def Record(room, path, file_name, title, cover, port):
-    os.system('streamlink -O https://live.bilibili.com/{0} best | ffmpeg -y -loglevel error -i pipe:0 -vcodec copy -acodec copy -vbsf h264_mp4toannexb  {1}/"{2}" &'.format(room, path, file_name))
+    os.system('streamlink -O https://live.bilibili.com/{0} best | ffmpeg -y -loglevel error -i pipe:0 -vcodec copy -acodec copy -vbsf h264_mp4toannexb  {1}/"{2}"'.format(room, path, file_name))
     print("Recorded")
     
     # Get Info
