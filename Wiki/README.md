@@ -28,7 +28,7 @@ BiliRec支持本地部署，并且兼容Windows和Linux系统，可部署在Resp
         repo: "BiliRec",
         owner: "Dreammer12138",
         admin: ['Dreammer12138'],
-        id: 'https://1145141919810.wang/BiliRec'
+        id: location.pathname,
     });
     gitalk.render('gitalk-container');
 </script>
