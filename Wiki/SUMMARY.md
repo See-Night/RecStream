@@ -5,3 +5,4 @@
 * [依赖](Requirement.md)
 * [安装](Install.md)
 * [运行](Run.md)
+* [更新记录](UpdateLog.md)
