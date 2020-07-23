@@ -15,3 +15,20 @@ BiliRec支持本地部署，并且兼容Windows和Linux系统，可部署在Resp
 
 - 本项目为开源项目，禁止任何人或团体使用该项目以任何形式进行盈利活动
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "a9f7d3f091928b45e225",
+        clientSecret: "af98a2e872ffd57b4443842cd200d5acf50d7f7d",
+        repo: "BiliRec",
+        owner: "Dreammer12138",
+        admin: ['Dreammer12138'],
+        id: location.pathname
+    });
+    gitalk.render('gitalk-container');
+</script>

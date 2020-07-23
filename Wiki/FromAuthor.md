@@ -11,3 +11,21 @@ BiliRec的工作模式说白了就是用Streamlink（一个基于Python的开源
 Streamlink也好，FFMPEG也好，对于新手来说着实不太友好，特别是FFMPEG的API过于晦涩难懂，最后我还是放弃了调用API直接暴力`os.system`。
 
 这个项目仍有很多问题，我调试的时候并没有进行多方面的测试只是保证它能正常运行而已。如果在使用过程中遇到问题还请多多反馈，感谢支持。
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+    const gitalk = new Gitalk({
+        clientID: "a9f7d3f091928b45e225",
+        clientSecret: "af98a2e872ffd57b4443842cd200d5acf50d7f7d",
+        repo: "BiliRec",
+        owner: "Dreammer12138",
+        admin: ['Dreammer12138'],
+        id: location.pathname
+    });
+    gitalk.render('gitalk-container');
+</script>
