@@ -80,3 +80,12 @@ function RecordSearchSelfAdapting(width) {
         })
     }
 }
+
+function RecordFromCalendar(day, t) {
+    var year = (new Date()).getFullYear()
+    var month = (new Date()).getMonth() + 1
+    var date = "" + year + "-" + month + "-" + day
+    $(t).click(() => {
+        window.location.href = "/Record?date=" + date
+    })
+}

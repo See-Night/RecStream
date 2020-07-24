@@ -7,11 +7,11 @@ import multiprocessing
 
 
 def start_django(py, p):
-    os.system('{} manage.py runserver 0.0.0.0:{} --insecure &'.format(py, p))
+    os.system('{} manage.py runserver 0.0.0.0:{} --insecure'.format(py, p))
 
 
 def start_monitor(py, r, p, pa, u):
-    os.system('{} monitor.py -r {} -p {} -o {} -u {} &'.format(py, r, p, pa, u))
+    os.system('{} monitor.py -r {} -p {} -o {} -u {}'.format(py, r, p, pa, u))
 
 
 if __name__ == '__main__':

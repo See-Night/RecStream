@@ -17,7 +17,7 @@
         {% for week in month %}
             <tr>
             {% for day in week %}
-                <td scope="col">{{ day }}</td>
+                <td scope="col" onclick="RecordFromCalendar('{{ day }}', this)">{{ day }}</td>
             {% endfor %}
             </tr>
         {% endfor %}

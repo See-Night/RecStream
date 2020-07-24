@@ -57,8 +57,8 @@ def index(request):
 
 
 def Record(request):
-    if request.POST:
-        RecList = RecordList(request.POST['date'])
+    if request.GET and request.GET['date'] and request.GET['date'] != '':
+        RecList = RecordList(request.GET['date'])
     else:
         RecList = RecordList()
     context = {

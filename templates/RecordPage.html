@@ -2,8 +2,7 @@
     <div class="col-10 m-3 p-4 bg-light shadow-sm">
         <h3 class="p-3">录播记录</h3>
 
-        <form class="d-flex col-6" method="post" action="/Record" id="RecordSearch">
-            {% csrf_token %}
+        <form class="d-flex col-6" method="get" action="/Record" id="RecordSearch">
             <input class="form-control col-6 m-2" type="date" name="date">
             <button class="btn btn-dark col-2 m-2">查询</button>
             <button class="btn btn-outline-dark col-2 m-2" type="reset">清空</button>
