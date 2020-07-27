@@ -74,4 +74,4 @@ if __name__ == "__main__":
 
         except Exception as e:
             print("ERROR: {}".format(e))
-            break
+            continue
