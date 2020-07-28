@@ -31,7 +31,21 @@ def Record(room, path, file_name, title, cover, port):
     })
     print("Upload Successful")
 
-if __name__ == "__main__":
+
+def getFileName(title):
+    date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+    rl = requests.get('http://localhost:{}/getRecordList?date={}'.format(port, date))
+    rl = json.loads(rl.text)['recordlist']
+    const = 0
+    for r in rl:
+        if title == r['Title']:
+            const += 1
+    file_name = "{}-part{}.mp4".format(title, const)
+
+    return file_name
+
+
+def main():
     opts, args = getopt.getopt(sys.argv[1:], "r:o:p:u:", ["room=", "outpath=", "port=", "uid="])
 
     try:
@@ -57,7 +71,7 @@ if __name__ == "__main__":
                 title = json.loads(requests.get('https://api.live.bilibili.com/xlive/web-room/v1/index/getInfoByRoom?room_id={}'.format(room)).text)['data']['room_info']['title']
 
                 # Set File Name
-                file_name = '{}.mp4'.format(title)
+                file_name = getFileName(title)
                 
                 # Get Cover
                 cover = json.loads(requests.get('https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid={}'.format(uid)).text)['data']['cover']
@@ -75,3 +89,7 @@ if __name__ == "__main__":
         except Exception as e:
             print("ERROR: {}".format(e))
             continue
+
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from RecVideo.tests import addRecordVideo
+from RecVideo.tests import addRecordVideo, RecordList
 from django.http import JsonResponse
+import time
 
 # Create your views here.
 
@@ -23,4 +24,15 @@ def addRecord(request):
         'msg': 'OK'
     }
 
+    return JsonResponse(res)
+
+def getRecordList(request):
+    if request.GET['date'] == "":
+        date = None
+    else:
+        date = request.GET['date']
+
+    res = {
+        'recordlist': RecordList(date)
+    }
     return JsonResponse(res)

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from LiveRec.views import index, Record, Info
-from RecVideo.views import addRecord
+from RecVideo.views import addRecord, getRecordList
 
 urlpatterns = [
     url(r'^$', index),
@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^Record$', Record),
     url(r'^Info$', Info),
     url(r'^addRecord$', addRecord),
+    url(r'^getRecordList$', getRecordList),
 ]
