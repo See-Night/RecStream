@@ -1,17 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light pl-5 pr-5 shadow-sm">
     <!-- Navbar content -->
     <img src="/static/image/logo.png" id="logo" class="img-fluid" alt="BiliRec">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon text-light"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            {% for nav in navs %}
-            <li class="nav-item {% if nav.active == True %}active{% endif %} pl-3 pr-3">
-                <a class="nav-link text-light" href="/{{ nav.toPage }}">{{ nav.text }}<span class="sr-only">(current)</span></a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
 </nav>

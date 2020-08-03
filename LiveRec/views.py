@@ -1,107 +1,82 @@
-import calendar
-import datetime
 from django.shortcuts import render
-from RecVideo.tests import RecordList, RecordInfo
+from RecVideo.tests import RecordList
 from Config.models import config
-
-
-def calendarInit():
-    year = datetime.date.today().year
-    month = datetime.date.today().month
-    FirDayWeek = calendar.monthrange(year, month)[0] + 1
-    allDays = calendar.monthrange(year, month)[1]
-    day = 1
-
-    month = []
-    while day <= allDays:
-        week = []
-        i = 0
-        if day == 1:
-            while i < FirDayWeek:
-                week.append('')
-                i += 1
-        while i < 7 and day <= allDays:
-            week.append(day)
-            day += 1
-            i += 1
-        if i < 7:
-            while i < 7:
-                week.append('')
-                i += 1
-        month.append(week)
-    return month
+from django.http import JsonResponse
+import platform
+import subprocess
+import signal
+import os
 
 
 def index(request):
-    context = {
-        'room_id': config.objects.all()[0].roomid,
-        'records': config.objects.all()[0].records,
-        'status': config.objects.all()[0].status,
-        'month': calendarInit(),
-        'navs': [
-            {
-                'text': '主页',
-                'toPage': 'Home',
-                'active': True
-            },
-            {
-                'text': '录播',
-                'toPage': 'Record',
-                'active': False
-            }
-        ],
-        'page': "HomePage",
-        'RecordList': RecordList()
-    }
-    return render(request, 'index.html', context)
-
-
-def Record(request):
     if request.GET and request.GET['date'] and request.GET['date'] != '':
         RecList = RecordList(request.GET['date'])
     else:
         RecList = RecordList()
     context = {
-        'month': calendarInit(),
+        'room_id': config.objects.all()[0].roomid,
+        'savepath': config.objects.all()[0].savepath,
+        'records': config.objects.all()[0].records,
+        'status': config.objects.all()[0].status,
         'navs': [
             {
                 'text': '主页',
                 'toPage': 'Home',
-                'active': False
+                'active': True
             },
             {
                 'text': '录播',
                 'toPage': 'Record',
-                'active': True
+                'active': False
             }
         ],
-        'page': "RecordPage",
+        'UID': config.objects.all()[0].UID,
+        'record_status': config.objects.all()[0].record_status,
         'RecordList': RecList
     }
     return render(request, 'index.html', context)
 
 
-def Info(request):
-    if 'id' in request.GET:
-        id = request.GET['id']
+def MonitorControl(request):
+    code = int(request.GET['code'])
+    if platform.system() == "Windows":
+        py = "python"
+        s = signal.SIGTERM
     else:
-        id = 1
-    context = {
-        'month': calendarInit(),
-        'navs': [
-            {
-                'text': '主页',
-                'toPage': 'Home',
-                'active': False
-            },
-            {
-                'text': '录播',
-                'toPage': 'Record',
-                'active': False
-            }
-        ],
-        'page': "RecordInfo",
-        'info': RecordInfo(id)
+        py = "python3"
+        s = signal.SIGKILL
+    try:
+        if code == 1:
+            p = subprocess.Popen("{} start.py".format(py))
+            config.objects.all().update(
+                record_status=1,
+                monitorPID=str(p.pid)
+            )
+        elif code == 0:
+            p = int(config.objects.all()[0].monitorPID)
+            if platform.system() == "Windows":
+                os.popen('taskkill.exe /pid:{}'.format(p))
+            else:
+                os.kill(p, s)
+            config.objects.all().update(
+                record_status=0,
+                monitorPID='0'
+            )
+        elif code == -1:
+            p = config.objects.all()[0].monitorPID
+            if platform.system() == "Windows":
+                os.popen('taskkill.exe /pid:' + p)
+            else:
+                os.kill(p, s)
+            p = subprocess.Popen("{} start.py".format(py))
+            config.objects.all().update(
+                record_status=1,
+                monitorPID=str(p.pid)
+            )
+    except Exception as e:
+        print(e)
+    res = {
+        'code': 1,
+        'msg': 'OK'
     }
-
-    return render(request, 'index.html', context)
+    return JsonResponse(res)

@@ -3,24 +3,18 @@
 ## Windows
 
 ```powershell
-PS > python start.py -r <roomid> -u <uid> -p <port> -o <outpath>
+PS > python manage.py runserver 0.0.0.0:<port> --insecure
 ```
 
 ## Linux
 
 ```shell
-$ sudo python3 -r <roomid> -u <uid> -p <port> -o <outpath>
+$ sudo python3 manage.py runserver 0.0.0.0:<port> --insecure
 ```
 
 ## 参数
 
-`-r` / `--room` 房间号
-
-`-u` / `--uid` 主播UID
-
-`-p` / `--port` 端口
-
-`-o` / `--outpath` 输出路径
+`--port` 端口
 
 ## Web端监控
 

@@ -16,14 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from LiveRec.views import index, Record, Info
-from RecVideo.views import addRecord, getRecordList
+from LiveRec.views import index
+from LiveRec.views import MonitorControl
+from RecVideo.views import getRecordList, addRecord
+from Config.tests import updateConfig
 
 urlpatterns = [
     url(r'^$', index),
     url(r'^Home$', index),
-    url(r'^Record$', Record),
-    url(r'^Info$', Info),
-    url(r'^addRecord$', addRecord),
     url(r'^getRecordList$', getRecordList),
+    url(r'^addRecord$', addRecord),
+    url(r'^MonitorControl$', MonitorControl),
+    url(r'^updateConfig$', updateConfig),
 ]

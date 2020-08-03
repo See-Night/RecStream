@@ -17,7 +17,13 @@ def RecordList(date=None):
         rec = {
             'id': r.id,
             'Title': r.Title,
-            'Date': r.Date
+            'Date': r.Date,
+            'Cover': r.Cover,
+            'Time': r.Time,
+            'Resolution': r.Resolution,
+            'FrameRate': r.FrameRate,
+            'VideoByteRate': r.VideoByteRate,
+            'AudioByteRate': r.AudioByteRate
         }
         res.append(rec)
 

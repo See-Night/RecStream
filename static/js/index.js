@@ -1,91 +1,47 @@
-window.onload = function () {
-    StatusSelfAdapting($(window).width())
-    record_calendarSelfAdapting($(window).width())
-    RecordSearchSelfAdapting($(window).width())
+function getInfo(id, Cover, Title, Date, Time, Resolution, FrameRate, VideoByteRate, AudioByteRate) {
+    $('#info_cover').attr('src', Cover)
+    $('#info_title').text(Title)
+    $('#info_framerate').text(FrameRate + '帧/s')
+    $('#info_resolution').text(Resolution)
+    $('#info_videobyterate').text(VideoByteRate + 'Kbps')
+    $('#info_audiobyterate').text(AudioByteRate + 'Kbps')
+}
 
-    $(window).resize(() => {
-        StatusSelfAdapting($(window).width())
-        record_calendarSelfAdapting($(window).width())
-        RecordSearchSelfAdapting($(window).width())
+function changeSettings(r, s, rs) {
+    $.get('/updateConfig', {
+        roomid: $('#listenroomid').val() == '' ? $('#listenroomid').attr('placeholder') : $('#listenroomid').val(),
+        UID: $('#listenUID').val() == '' ? $('#listenUID').attr('placeholder') : $('#listenUID').val(),
+        records: r,
+        status: s,
+        record_status: rs,
+        savepath: $('#savepath').val() == '' ? $('#savepath').attr('placeholder') : $('#savepath').val()
+    }, function (res) {
+        if (res['code'] == 1) {
+            alert('Successful')
+        }
     })
 }
 
-function toInfoPage(id) {
-    window.open(window.location.protocol + "//" + window.location.host + '/Info?id=' + id)
+function RecordStart() {
+    $.get('/MonitorControl', {
+        'code': 1
+    }, () => {
+        location.reload()
+    })
 }
 
-function record_calendarSelfAdapting(width) {
-    if (width < 900) {
-        $('#rec_cal').attr({
-            'class': 'row mt-3 mb-3 d-flex flex-column'
-        })
-        $('#calendar').attr({
-            'class': 'col p-4 d-flex flex-column bg-light shadow-sm mb-2'
-        })
-        $('#recordlist').attr({
-            'class': 'col d-flex flex-column align-items-between p-0 mt-2'
-        })
-        $('#recordlist').children().attr({
-            'class': 'col bg-light p-3 d-flex flex-column'
-        })
-    }
-    else {
-        $('#rec_cal').attr({
-            'class': 'row mt-3 mb-3 d-flex justify-content-between'
-        })
-        $('#calendar').attr({
-            'class': 'col-4 p-4 d-flex flex-column bg-light shadow-sm'
-        })
-        $('#recordlist').attr({
-            'class': 'col-8 d-flex flex-column align-items-end p-0'
-        })
-        $('#recordlist').children().attr({
-            'class': 'col-11 bg-light p-3 d-flex flex-column'
-        })
-    }
+function RecordStop() {
+    $.get('/MonitorControl', {
+        'code': 0
+    }, () => {
+        location.reload()
+    })
 }
 
-function StatusSelfAdapting(width) {
-    if (width < 900) {
-        $('#statusinfo').attr({
-            'class': 'd-flex justify-content-center flex-column'
-        })
-        for (var i = 0; i < $('#statusinfo').children().length; i++) {
-            $($('#statusinfo').children()[i]).attr({
-                'class': 'col p-4 mt-3 mb-3 d-flex flex-column justify-content-center border-dark border'
-            })
-        }
-    }
-    else {
-        $('#statusinfo').attr({
-            'class': 'd-flex justify-content-center'
-        })
-        for (var i = 0; i < $('#statusinfo').children().length; i++) {
-            $($('#statusinfo').children()[i]).attr({
-                'class': 'col-3 p-4 m-3 d-flex flex-column justify-content-center border-dark border'
-            })
-        }
-    }
-}
-
-function RecordSearchSelfAdapting(width) {
-    if (width < 900) {
-        $('#RecordSearch').attr({
-            'class': 'd-flex col'
-        })
-    }
-    else {
-        $('#RecordSearch').attr({
-            'class': 'd-flex col-6'
-        })
-    }
-}
-
-function RecordFromCalendar(day, t) {
-    var year = (new Date()).getFullYear()
-    var month = (new Date()).getMonth() + 1
-    var date = "" + year + "-" + month + "-" + day
-    $(t).click(() => {
-        window.location.href = "/Record?date=" + date
+function RecordRestart() {
+    $.get('/MonitorControl', {
+        'code': -1
+    }, () => {
+        location.reload()
     })
 }

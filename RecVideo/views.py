@@ -3,6 +3,7 @@ from RecVideo.tests import addRecordVideo, RecordList
 from django.http import JsonResponse
 import time
 
+
 # Create your views here.
 
 
@@ -25,6 +26,7 @@ def addRecord(request):
     }
 
     return JsonResponse(res)
+
 
 def getRecordList(request):
     if request.GET['date'] == "":
