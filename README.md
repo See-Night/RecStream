@@ -19,9 +19,7 @@ BiliRec是一个基于Python的Bilibili自动录播器。
 #### Linux
 
 ```shell
-# 安装python依赖
 $ sudo pip3 install -r requirements.txt
-
 $ sudo python3 manage.py migrate
 ```
 
@@ -37,21 +35,15 @@ PS> python manage.py migrate
 #### Linux
 
 ```shell
-$ sudo python3 start.py -r <room_id> -o <out_path> -p <port> -u <uid>
+$ sudo python3 manage.py runserver 0.0.0.0:<port> --insecure
 ```
 
 #### Windows
 
 ```powershell
-PS> python start.py -r <room_id> -o <out_path> -p <port> -u <uid>
+PS> python manage.py runserver 0.0.0.0:<port> --insecure
 ```
 
 #### 参数
 
-`-r/--room` 房间ID
-
-`-o/--outpath` 保存路径
-
-`-p/--port` Web端口
-
-`-u/--uid` 主播UID
+`--port` Web端口

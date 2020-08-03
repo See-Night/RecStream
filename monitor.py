@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 import json
-import os
-import time
 import sys
-import getopt
 import requests
 import ffmpeg
 import platform
@@ -76,70 +73,3 @@ class Monitor:
             'VideoByteRate': info['streams'][0]['bit_rate'],
             'AudioByteRate': info['streams'][1]['bit_rate']
         })
-
-
-#def getFileName(title):
-#    date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-#    rl = requests.get('http://localhost:{}/getRecordList?date={}'.format(port, date))
-#    rl = json.loads(rl.text)['recordlist']
-#    const = 0
-#    for r in rl:
-#        if title == r['Title']:
-#            const += 1
-#    file_name = "{}-part{}.mp4".format(title, const)
-#
-#    return file_name
-#
-#
-#def main():
-#    opts, args = getopt.getopt(sys.argv[1:], "r:o:p:u:", ["room=", "outpath=", "port=", "uid="])
-#
-#    try:
-#        for opt, val in opts:
-#            if opt in ("-r", "--room"):
-#                room = val
-#            if opt in ("-o", "--outpath"):
-#                path = val
-#            if opt in ("-p", "--port"):
-#                port = val
-#            if opt in ("-u", "--uid"):
-#                uid = val
-#    except getopt.GetoptError as e:
-#        sys.exit()
-#
-#    print("正在监听{}".format(room))
-#
-#    while True:
-#        try:
-#            streams = len(streamlink.streams("https://live.bilibili.com/{}".format(room)))
-#            if streams != 0:
-#                # Get Title
-#                title = json.loads(requests.get(
-#                    'https://api.live.bilibili.com/xlive/web-room/v1/index/getInfoByRoom?room_id={}'.format(
-#                        room)).text)['data']['room_info']['title']
-#
-#                # Set File Name
-#                file_name = getFileName(title)
-#
-#                # Get Cover
-#                cover = json.loads(
-#                    requests.get('https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid={}'.format(uid)).text)[
-#                    'data']['cover']
-#                with open('./static/image/Cover/{}.jpg'.format(title), 'wb') as f:
-#                    f.write(requests.get(cover).content)
-#                    cover = './static/image/Cover/{}.jpg'.format(title)
-#
-#                # Record
-#                try:
-#                    Record(room, path, file_name, title, cover, port)
-#                except Exception as e:
-#                    print("ERROR: {}".format(e))
-#                    continue
-#
-#        except Exception as e:
-#            print("ERROR: {}".format(e))
-#            continue
-#
-#
-#if __name__ == "__main__":
-#    main()
