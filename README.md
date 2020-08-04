@@ -25,6 +25,8 @@ BiliRec是一个基于Python的Bilibili自动录播器。
 
 请访问[Releases](https://github.com/Dreammer12138/BiliRec/releases)下载对应的安装脚本进行安装
 
+国内用户推荐去[Gitee](https://gitee.com/Dreammer12138/BiliRec/releases)下载
+
 ### 注意事项
 
 - 本项目为开源项目，允许随意下载使用
