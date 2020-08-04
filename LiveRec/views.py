@@ -47,7 +47,7 @@ def MonitorControl(request):
         s = signal.SIGKILL
     try:
         if code == 1:
-            p = subprocess.Popen("{} start.py".format(py))
+            p = subprocess.Popen("{} start.py".format(py), shell=True)
             config.objects.all().update(
                 record_status=1,
                 monitorPID=str(p.pid)
@@ -68,7 +68,7 @@ def MonitorControl(request):
                 os.popen('taskkill.exe /pid:' + p)
             else:
                 os.kill(p, s)
-            p = subprocess.Popen("{} start.py".format(py))
+            p = subprocess.Popen("{} start.py".format(py), shell=True)
             config.objects.all().update(
                 record_status=1,
                 monitorPID=str(p.pid)

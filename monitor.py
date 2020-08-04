@@ -26,7 +26,7 @@ class Monitor:
             return True
 
     def getTitle(self):
-        res = requests.get('https://api.live.bilibili.com/xlive/web-room/v1/index/getInfoByRoom?room_id={}'.format(room)).text
+        res = requests.get('https://api.live.bilibili.com/xlive/web-room/v1/index/getInfoByRoom?room_id={}'.format(self.room)).text
         self.Title = json.loads(res)['data']['room_info']['title']
 
     def setFileName(self):
