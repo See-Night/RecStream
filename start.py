@@ -10,11 +10,10 @@ from monitor import Monitor
 def rec():
     conn = sqlite3.connect('db.sqlite3')
     cur = conn.cursor()
-    records = cur.execute('select * from Config_config').fetchall()[0]
-    room = records[1]
-    uid = records[6]
-    path = records[5]
-    port = records[7]
+    room = cur.execute('select roomid from Config_config').fetchall()[0][0]
+    uid = cur.execute('select UID from Config_config').fetchall()[0][0]
+    path = cur.execute('select savepath from Config_config').fetchall()[0][0]
+    port = cur.execute('select prot from Config_config').fetchall()[0][0]
     print('start linsten room {}'.format(room))
     m = Monitor(
         room=room,

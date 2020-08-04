@@ -36,20 +36,20 @@ class Monitor:
         rl = json.loads(rl.text)['recordlist']
         const = 0
         for r in rl:
-            if title == r['Title']:
+            if self.Title == r['Title']:
                 const += 1
-        self.file_name = "{}-part{}.mp4".format(title, const)
+        self.file_name = "{}-part{}.mp4".format(self.Title, const)
     
     def getCover(self):
-        res = requests.get('https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid={}'.format(uid)).text
+        res = requests.get('https://api.live.bilibili.com/room/v1/Room/getRoomInfoOld?mid={}'.format(self.uid)).text
         cover = json.loads(res)['data']['cover']
-        with open('./static/image/Cover/{}.jpg'.format(title), 'wb') as f:
+        with open('./static/image/Cover/{}.jpg'.format(self.Title), 'wb') as f:
             f.write(requests.get(cover).content)
-            self.cover = './static/image/Cover/{}.jpg'.format(title)
+            self.cover = './static/image/Cover/{}.jpg'.format(self.Title)
 
     def Record(self):
         print("start recording")
-        p = subprocess.Popen('streamlink -O https://live.bilibili.com/{0} best | ffmpeg -y -loglevel error -i pipe:0 -vcodec copy -acodec copy -vbsf h264_mp4toannexb  {1}/"{2}" >> log'.format(self.room, self.path, self.file_name))
+        p = subprocess.Popen('streamlink -O https://live.bilibili.com/{0} best | ffmpeg -y -loglevel error -i pipe:0 -vcodec copy -acodec copy -vbsf h264_mp4toannexb  {1}/"{2}" >> log'.format(self.room, self.path, self.file_name), shell=True)
 
         conn = sqlite3.connect('db.sqlite3')
         c = conn.cursor()
@@ -61,12 +61,12 @@ class Monitor:
         p.wait()
 
         # Get Info
-        info = ffmpeg.probe('{}/{}'.format(path, file_name))
+        info = ffmpeg.probe('{}/{}'.format(self.path, self.file_name))
 
         # Save In Database
-        requests.get('http://localhost:{}/addRecord'.format(port), params={
-            'Title': title,
-            'Cover': cover,
+        requests.get('http://localhost:{}/addRecord'.format(self.port), params={
+            'Title': self.Title,
+            'Cover': self.cover,
             'Date': time.strftime('%Y-%m-%d', time.localtime(time.time())),
             'Time': info['format']['duration'],
             'Resolution': '{}x{}'.format(info['streams'][0]['width'], info['streams'][0]['height']),
