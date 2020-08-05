@@ -14,3 +14,4 @@ class config(models.Model):
     port = models.CharField(max_length=8, default='8000')
     monitorPID = models.CharField(max_length=10, default='0')
     streamlinkPID = models.CharField(max_length=10, default='0')
+    command = models.IntegerField(default=0)

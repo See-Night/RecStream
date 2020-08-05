@@ -13,7 +13,7 @@ def rec():
     room = cur.execute('select roomid from Config_config').fetchall()[0][0]
     uid = cur.execute('select UID from Config_config').fetchall()[0][0]
     path = cur.execute('select savepath from Config_config').fetchall()[0][0]
-    port = cur.execute('select prot from Config_config').fetchall()[0][0]
+    port = cur.execute('select port from Config_config').fetchall()[0][0]
     print('start linsten room {}'.format(room))
     m = Monitor(
         room=room,
@@ -23,6 +23,8 @@ def rec():
     )
     while True:
         try:
+            if cur.execute('select command from Config_config').fetchall()[0][0] == 0:
+                return
             if not m.DetectLiveStream():
                 continue
             m.getTitle()
@@ -33,7 +35,7 @@ def rec():
             print("ERROR: {}".format(e))
             continue
         except KeyboardInterrupt as k:
-            continue
+            break
     print('stop')
 
 
