@@ -1,0 +1,34 @@
+{
+  "name": "middlewave",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@types/express": "latest",
+    "connect-history-api-fallback": "latest",
+    "cookie-parser": "latest",
+    "debug": "latest",
+    "express": "latest",
+    "guid-typescript": "latest",
+    "http-errors": "latest",
+    "morgan": "latest",
+    "mysql": "latest",
+    "pug": "latest",
+    "reflect-metadata": "latest",
+    "sqlite3": "latest",
+    "ts-node": "latest",
+    "ts-node-dev": "latest",
+    "typeorm": "latest",
+    "typescript": "latest"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "latest",
+    "@types/http-errors": "latest",
+    "@types/node": "latest",
+    "ts-node": "latest",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "serve": "ts-node bin/www.ts"
+  }
+}
