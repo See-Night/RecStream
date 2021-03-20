@@ -1,0 +1,7 @@
+*.mp4
+*.flv
+db.sqlite3
+Dockerfile
+*.Dockerfile
+__pycache__/
+migrations/
