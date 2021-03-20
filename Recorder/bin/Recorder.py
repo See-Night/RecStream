@@ -31,8 +31,6 @@ def getConfig():
 
     cursor = list(conn.execute(SQL))
 
-    print(cursor)
-
     return cursor[0][1]
 
 
@@ -63,6 +61,8 @@ class Monitor:
 
             updateRPID(None, self.listener.url)
 
+            global BASE_DIR
+
             # Get Info
             info = ffmpeg.probe(
                 '{}/{}'
@@ -73,16 +73,16 @@ class Monitor:
             )
 
             # Save In Database
-            requests.get('http://localhost:{}/VideoInfo/add'.format(self.port), params={
+            requests.post('http://localhost:{}/VideoInfo/add'.format(self.port), data={
                 'FileName': self.listener.stream.filename,
                 'Title': self.listener.stream.title,
                 'Time': info['format']['duration'],
                 'Date': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                 'LiveURL': self.listener.url,
-                'Resolution': '{}x{}'.format(info['streams'][0]['width'], info['streams'][0]['height']),
-                'FrameRate': info['streams'][0]['r_frame_rate'],
-                'VideoByteRate': info['streams'][0]['bit_rate'],
-                'AudioByteRate': info['streams'][1]['bit_rate']
+                'Resolution': '{}x{}'.format(info['streams'][1]['width'], info['streams'][1]['height']),
+                'FrameRate': info['streams'][1]['r_frame_rate'],
+                'VideoByteRate': info['streams'][1]['bit_rate'],
+                'AudioByteRate': info['streams'][0]['bit_rate']
             })
         except KeyboardInterrupt:
             updateRPID(None, self.listener.url)

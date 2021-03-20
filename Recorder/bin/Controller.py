@@ -1,5 +1,6 @@
 import getopt
 import sys
+import time
 from Recorder import Monitor
 from Listener import Listener
 
@@ -21,8 +22,8 @@ def rec(url):
     while True:
         if l.DetectLiveStream():
             m.Record()
-        else:
-            continue
+        time.sleep(120)
+
 
 
 if __name__ == "__main__":

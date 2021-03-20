@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.urls.conf import path
 from .views import addVideoInfo, delVideoInfo
+
 urlpatterns = [
     path('add', addVideoInfo),
     path('del', delVideoInfo)
