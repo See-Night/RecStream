@@ -14,9 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls.conf import path
-from .views import addVideoInfo, delVideoInfo
+from .views import addVideoInfo, delVideoInfo, getVideoInfo, recodeVideo
 
 urlpatterns = [
     path('add', addVideoInfo),
-    path('del', delVideoInfo)
+    path('delete', delVideoInfo),
+    path('get', getVideoInfo),
+    path('recode', recodeVideo)
 ]

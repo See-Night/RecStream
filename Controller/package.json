@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/express": "latest",
+    "axios": "^0.21.1",
     "connect-history-api-fallback": "latest",
     "cookie-parser": "latest",
     "debug": "latest",
@@ -14,7 +15,8 @@
     "mysql": "latest",
     "pug": "latest",
     "reflect-metadata": "latest",
-    "sqlite3": "latest",
+    "request": "^2.88.2",
+    "sqlite3": "^5.0.2",
     "ts-node": "latest",
     "ts-node-dev": "latest",
     "typeorm": "latest",

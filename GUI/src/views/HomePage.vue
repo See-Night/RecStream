@@ -30,18 +30,9 @@
         </div>
         <div>
           <el-table :data="files" style="width: 100%">
-            <el-table-column sortable prop="Title" label="标题" width="250">
+            <el-table-column sortable prop="FileName" label="标题">
             </el-table-column>
-            <el-table-column
-              sortable
-              prop="FileName"
-              label="文件名"
-              width="300"
-            >
-            </el-table-column>
-            <el-table-column sortable prop="Date" label="日期" width="150">
-            </el-table-column>
-            <el-table-column sortable prop="Time" label="时长">
+            <el-table-column sortable prop="Date" label="日期" width="200">
             </el-table-column>
           </el-table>
         </div>

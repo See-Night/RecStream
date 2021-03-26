@@ -25,9 +25,6 @@ export class VideoInfo {
     FrameRate: string;
 
     @Column()
-    VideoByteRate: string;
-
-    @Column()
     AudioByteRate: string;
 
 }

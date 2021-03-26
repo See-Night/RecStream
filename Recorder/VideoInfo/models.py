@@ -10,5 +10,4 @@ class VideoInfo(models.Model):
     LiveURL = CharField(max_length=255)
     Resolution = CharField(max_length=255)
     FrameRate = CharField(max_length=255)
-    VideoByteRate = CharField(max_length=255)
     AudioByteRate = CharField(max_length=255)

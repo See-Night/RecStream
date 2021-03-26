@@ -72,18 +72,29 @@ class Monitor:
                 )
             )
 
+            video = {}
+            audio = {}
+            for i in info['streams']:
+                if i['codec_type'] == 'video':
+                    video = i
+                if i['codec_type'] == 'audio':
+                    audio = i
+
+            hour, remainder = divmod(float(info['format']['duration']), 3600)
+            minute, second = divmod(remainder, 60)
+
             # Save In Database
             requests.post('http://localhost:{}/VideoInfo/add'.format(self.port), data={
                 'FileName': self.listener.stream.filename,
                 'Title': self.listener.stream.title,
-                'Time': info['format']['duration'],
+                'Time': "%02d:%02d:%02d" % (hour, minute, second),
                 'Date': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                 'LiveURL': self.listener.url,
-                'Resolution': '{}x{}'.format(info['streams'][1]['width'], info['streams'][1]['height']),
-                'FrameRate': info['streams'][1]['r_frame_rate'],
-                'VideoByteRate': info['streams'][1]['bit_rate'],
-                'AudioByteRate': info['streams'][0]['bit_rate']
+                'Resolution': '{}x{}'.format(video['width'], video['height']),
+                'FrameRate': "%.2fMbps" % (int(info['format']['bit_rate'])/1048576),
+                'AudioByteRate': "%.2fKbps" % (int(audio['bit_rate'])/1024)
             })
+
         except KeyboardInterrupt:
             updateRPID(None, self.listener.url)
         except Exception:

@@ -1,4 +1,5 @@
 from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import Listener
 from pathlib import Path
 import subprocess
@@ -57,63 +58,80 @@ def kill(PID):
         os.kill(PID, signal.SIGKILL)
 
 
+def getListener(request):
+    res = []
+    for listener in Listener.objects.all():
+        res.append({
+            'LiveURL': listener.LiveURL,
+            'Name': listener.Name,
+            'Status': listener.Status
+        })
+    return JsonResponse(res, safe=False)
+
+
+@csrf_exempt
 def addListener(request):
-    URL = request.GET['URL']
+    LiveURL = request.POST['LiveURL']
+    Name = request.POST['Name']
+    Status = request.POST['Status']
+    Platform = request.POST['Platform']
     try:
-        newListener = Listener(LiveURL=URL, Status=0)
+        newListener = Listener(LiveURL=LiveURL, Name=Name, Status=Status, Platform=Platform)
         newListener.save()
         return JsonResponse({
-            'status': 1,
+            'status': True,
             'msg': 'OK'
         })
     except Exception as e:
         return JsonResponse({
-            'status': 0,
+            'status': False,
             'msg': e
         })
 
 
+@csrf_exempt
 def delListener(request):
-    URL = request.GET['URL']
+    LiveURL = request.POST['LiveURL']
     try:
-        oldListener = Listener.objects.get(LiveURL=URL)
+        oldListener = Listener.objects.get(LiveURL=LiveURL)
         oldListener.delete()
         return JsonResponse({
-            'status': 1,
+            'status': True,
             'msg': 'OK'
         })
     except Exception as e:
         return JsonResponse({
-            'status': 0,
+            'status': False,
             'msg': e
         })
 
 
+@csrf_exempt
 def startListener(request):
-    URL = request.GET['URL']
+    LiveURL = request.POST['LiveURL']
 
     try:
-        if LiveURL_exist(URL) and not ListenerStatus(URL):
+        if LiveURL_exist(LiveURL) and not ListenerStatus(LiveURL):
             p = subprocess.Popen(
                 '{platform} {base_dir}/bin/Controller.py --url {url}'
                 .format(
                     platform=PlatForm(),
                     base_dir=BASE_DIR.parent,
-                    url=URL
+                    url=LiveURL
                 ),
                 shell=True
             )
 
             Listener.objects.filter(
-                LiveURL=URL
+                LiveURL=LiveURL
             ).update(Status=1, PID=p.pid)
             return JsonResponse({
-                'status': 1,
+                'status': True,
                 'msg': 'OK'
             })
         else:
             return JsonResponse({
-                'status': 0,
+                'status': False,
                 'msg': 'URL is not exist'
             })
 
@@ -124,25 +142,26 @@ def startListener(request):
         })
 
 
+@csrf_exempt
 def stopListener(request):
-    URL = request.GET['URL']
+    LiveURL = request.POST['LiveURL']
     try:
-        if LiveURL_exist(URL) and ListenerStatus(URL):
-            if KillListener(URL):
-                Listener.objects.filter(LiveURL=URL).update(
+        if LiveURL_exist(LiveURL) and ListenerStatus(LiveURL):
+            if KillListener(LiveURL):
+                Listener.objects.filter(LiveURL=LiveURL).update(
                     Status=0
                 )
                 return JsonResponse({
-                    'status': 1,
+                    'status': True,
                     'msg': 'OK'
                 })
             else:
                 return JsonResponse({
-                    'status': 0,
+                    'status': False,
                     'msg': 'Error'
                 })
     except Exception as e:
         return JsonResponse({
-            'status': 0,
+            'status': False,
             'msg': e
         })

@@ -15,7 +15,9 @@ export default new Vuex.Store({
         delete: '/api/listener/delete'
       },
       file: {
-        get: '/api/file/get'
+        get: '/api/file/get',
+        recode: '/api/file/recode',
+        delete: '/api/file/delete'
       },
       setting: {
         get: '/api/setting/get',
