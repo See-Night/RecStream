@@ -67,6 +67,7 @@ export default {
       const API = this.$store.state.API;
       let v = this;
       v.$axios.get(API.listener.get).then((res) => {
+        console.log(res.data);
         v.listeners = res.data;
       });
     },
@@ -82,9 +83,6 @@ export default {
     moreListener() {
       this.$router.push("/listener/all");
     },
-    test() {
-      console.log(this.$store.state);
-    }
     moreFiles() {
       this.$router.push("/files");
     },
