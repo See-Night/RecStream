@@ -14,6 +14,7 @@
         <div v-for="listener in 2" :key="listener">
           <ListenerItem
             :listener="listeners[listener]"
+            :cast="localhost"
             :btnShow="false"
           ></ListenerItem>
         </div>
@@ -81,6 +82,9 @@ export default {
     moreListener() {
       this.$router.push("/listener/all");
     },
+    test() {
+      console.log(this.$store.state);
+    }
     moreFiles() {
       this.$router.push("/files");
     },
@@ -109,6 +113,7 @@ export default {
 }
 .clearfix:after {
   clear: both;
+  
 }
 
 .item {
@@ -148,7 +153,6 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-
 .info {
   padding: 0.5rem !important;
   display: flex;
