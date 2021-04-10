@@ -1,2 +1,0 @@
-* [Home](/)
-* [Streamlink API](/StreamlinkAPI)
