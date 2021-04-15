@@ -1,2 +1,4 @@
 # yarn
 yarn.lock
+
+*.code-workspace
