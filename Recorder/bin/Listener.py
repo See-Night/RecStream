@@ -13,7 +13,8 @@ class Listener:
 
     def RecognitionPlatform(self):
         regular = r'http[s]?:\/\/([a-zA-Z0-9]+\.)?([a-zA-Z0-9]+)\.([a-zA-Z0-9]+)'
-        self.platform = re.match(regular, self.url).groups(2)
+        self.platform = re.match(regular, self.url).group(2)
+        print(self.platform)
 
         if self.platform == 'bilibili':
             self.stream = bilibili(self.url)
@@ -22,7 +23,8 @@ class Listener:
         if self.platform == 'douyu':
             self.stream = douyu(self.url)
         if self.platform == 'qq':
-            self.stream = qq(self.url)
+            host = re.match(regular, self.url).group(1)
+            self.stream = qq(self.url, host)
     
     def DetectLiveStream(self):
         if self.stream.DetectLiveStream():
